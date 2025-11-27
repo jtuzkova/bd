@@ -22,35 +22,28 @@ cache_conn = RedisCache(cache_config['redis'])
 
 @flight_bp.route('/order', methods=['GET', 'POST'])
 def show_booking_page():
-    # 1. Берём параметры поиска из сессии
     params = session.get('search_params', {})
     print(params)
 
-    # 2. Если пришёл новый поиск — обновляем параметры
     if request.method == 'POST':
         params = {
-            'departure_airport': request.form.get('departure_city'),
             'arrival_airport': request.form.get('arrival_city'),
+            'class': request.form.get('ticket_class'),
             'date': request.form.get('flight_date'),
-            'class': request.form.get('ticket_class')
+            'departure_airport': request.form.get('departure_city'),
         }
         session['search_params'] = params
         session.modified = True
-        # if new_params['departure_airport'] and new_params['arrival_airport']:
-        #     params = new_params
-        #     session['search_params'] = params
-        #     session.modified = True
 
-    # 3. ВСЕГДА выполняем поиск, если есть параметры (и при GET, и при POST)
     items = []
     if params:
         sql_name = "find_flights.sql"
         flights_info = model_route(flight_provider, sql_name, params)
         items = flights_info.result if flights_info.status and flights_info.result else []
 
-    # 4. Корзина и сумма
     basket_items = session.get('basket', {})
     total_price = 0.0
+
     for item in basket_items.values():
         try:
             price = float(item.get('price', '0'))
@@ -59,12 +52,15 @@ def show_booking_page():
         amount = item.get('amount', 1)
         total_price += price * amount
 
+    session['total_price'] = total_price
+    session.modified = True
+
     return render_template(
         'basket_order_list.html',
         items=items,
         basket=basket_items,
         total_price=total_price,
-        search_params=params
+        search_params=params,
     )
 
 
@@ -75,14 +71,13 @@ def add_to_basket():
     return redirect(url_for('flight_bp.show_booking_page'))
 
 def model_add_to_basket(user_data):
-    current_basket = session.get('basket', {})
     d_id = user_data.get('d_id')
     ticket_class = user_data.get('class')
 
     sql_name = "get_flight_by_id.sql"
     params = {'f_id': d_id, 'class': ticket_class}
     result_info = model_route(flight_provider, sql_name, params)
-    print(result_info)
+
     if result_info.status and result_info.result:
         flight = result_info.result[0]  # первый результат
 
@@ -108,9 +103,7 @@ def model_add_to_basket(user_data):
 
         session['basket'] = basket
         print('basket=', session['basket'])
-    else:
-        # Обработка случая, если билет не найден
-        print("Билет не найден!")
+    print("Билет не найден!")
 
     return redirect(url_for('flight_bp.show_booking_page'))
 
@@ -118,36 +111,111 @@ def model_add_to_basket(user_data):
 @flight_bp.route('/clear')
 def clear_basket():
     session.pop('basket')
-    session.pop('search_params', None)
     return redirect(url_for('flight_bp.show_booking_page'))
 
 
-@flight_bp.route('/save', methods=['GET'])
+@flight_bp.route('/fill', methods=['GET'])
+def fill_passenger():
+    basket = session.get('basket', {})
+    if not basket:
+        return redirect(url_for('flight_bp.show_booking_page'))
+
+    total_price = session.get('total_price', 0.0)
+    return render_template('fill_passenger.html', basket=basket, total_price=total_price)
+
+
+@flight_bp.route('/save', methods=['POST'])
 def save_order():
     basket = session.get('basket', {})
     user_id = session.get('user_id')
+
+    # Получаем данные пассажира из формы
+    passenger_name = request.form.get('passenger_name')
+    passenger_birthday = request.form.get('birthday')
 
     if not basket or not user_id:
         return redirect(url_for('flight_bp.show_booking_page'))
 
     order_date = date.today()
+    purchase_date = date.today()
 
     sql_insert_order = flight_provider.get('insert_order.sql')
     sql_insert_order_list = flight_provider.get('insert_order_list.sql')
+    sql_insert_passenger = flight_provider.get('insert_passenger.sql')
+    sql_get_passenger = flight_provider.get('get_passenger.sql')
+    sql_insert_ticket = flight_provider.get('insert_ticket.sql')
+    sql_get_scale = flight_provider.get('get_scale_by_price.sql')
+    sql_update_bonus = flight_provider.get('update_passenger_bonus.sql')
+    sql_insert_history = flight_provider.get('insert_history.sql')
 
     order_id = None
+    total_bonus_miles = 0
+    new_bonus_miles = 0
 
     with DBContextManager(db_config) as cursor:
         if cursor is None:
             raise ValueError('Не удалось подключиться')
-        else:
-            cursor.execute(sql_insert_order, [user_id, order_date])
-            order_id = cursor.lastrowid
 
-            for key, item in basket.items():
-                f_id = item['f_id']
-                ticket_class = item['class']
-                cursor.execute(sql_insert_order_list, [order_id, int(f_id), item['amount'], ticket_class])
+        # 1. Создаем заказ
+        cursor.execute(sql_insert_order, [user_id, order_date])
+        order_id = cursor.lastrowid
+
+        # 2. Находим или создаем пассажира
+        cursor.execute(sql_get_passenger, [passenger_name, passenger_birthday])
+        passenger_result = cursor.fetchone()
+
+        if passenger_result:
+            p_id = passenger_result[0]
+            old_bonus_miles = passenger_result[1]
+        else:
+            cursor.execute(sql_insert_passenger, [passenger_name, passenger_birthday, 0, date.today()])
+            p_id = cursor.lastrowid
+            old_bonus_miles = 0
+
+        total_bonus_miles = 0
+
+        # 3. Обрабатываем каждый билет в корзине
+        for key, item in basket.items():
+            f_id = item['f_id']
+            d_id = item['d_id']
+            ticket_class = item['class']
+            amount = item['amount']
+            price = float(item['price'])
+
+            # Добавляем в order_list
+            cursor.execute(sql_insert_order_list, [order_id, int(f_id), amount, ticket_class])
+
+            # Для каждого билета (по amount)
+            for _ in range(amount):
+                # Определяем s_id и бонусные мили по таблице scale
+                cursor.execute(sql_get_scale, [price])
+                scale_result = cursor.fetchone()
+
+                if scale_result:
+                    s_id = scale_result[0]
+                    miles = scale_result[1]
+                else:
+                    s_id = None
+                    miles = 0
+
+                total_bonus_miles += miles
+
+                # Добавляем билет в таблицу ticket
+                cursor.execute(sql_insert_ticket, [ticket_class, purchase_date, price, p_id, d_id, s_id])
+
+        # 4. Обновляем бонусные мили пассажира
+        new_bonus_miles = old_bonus_miles + total_bonus_miles
+        cursor.execute(sql_update_bonus, [new_bonus_miles, date.today(), p_id])
+
+        # 5. Записываем в историю изменение бонусов
+        cursor.execute(sql_insert_history, [old_bonus_miles, new_bonus_miles, date.today(), p_id])
 
     session.pop('basket')
-    return render_template('order_saved.html', order_id=order_id)
+    session.modified = True
+
+    return render_template(
+        'order_saved.html',
+        order_id=order_id,
+        earned_bonus=total_bonus_miles,
+        new_bonus=new_bonus_miles
+    )

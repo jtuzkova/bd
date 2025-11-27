@@ -11,7 +11,7 @@
         <h1 class="page-title">✈️ ПОКУПКА АВИАБИЛЕТОВ</h1>
 
         <div class="header-buttons">
-            <a href="{{ url_for('flight_bp.save_order') }}" class="header-btn btn-primary">
+            <a href="{{ url_for('flight_bp.fill_passenger') }}" class="header-btn btn-primary">
                 📋 Оформить заказ
             </a>
             <a href="{{ url_for('main_menu') }}" class="header-btn btn-secondary">
@@ -42,10 +42,10 @@
                         <option value="business" {% if search_params.get('class') == 'business' %}selected{% endif %}>Бизнес</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Кол-во пассажиров:</label>
-                    <input type="number" name="passenger_count" min="1" value="{{ search_params.get('passenger_count', 1) }}" required>
-                </div>
+<!--                <div class="form-group">-->
+<!--                    <label>Кол-во пассажиров:</label>-->
+<!--                    <input type="number" name="passenger_count" min="1" value="{{ passenger_count }}" required>-->
+<!--                </div>-->
                 <div class="form-group">
                     <button type="submit" class="btn-search">🔍 Найти билеты</button>
                 </div>

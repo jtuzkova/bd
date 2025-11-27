@@ -1,0 +1,190 @@
+/* Стили для страницы подтверждения заказа */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 40px);
+    width: 100%;
+}
+
+.success-container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    animation: slideInUp 0.6s ease-out;
+}
+
+.success-header {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border-radius: 10px;
+    color: white;
+}
+
+.success-title {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+.success-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.bonus-section {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 2px solid #28a745;
+}
+
+.bonus-title {
+    color: #28a745;
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.bonus-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.bonus-label {
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.bonus-value {
+    color: #28a745;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.actions-section {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #218838, #1e9e8a);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4);
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    color: white;
+    box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6268, #495057);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.4);
+    text-decoration: none;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .success-container {
+        padding: 25px;
+        margin: 10px;
+    }
+
+    .success-title {
+        font-size: 24px;
+    }
+
+    .success-subtitle {
+        font-size: 14px;
+    }
+
+    .bonus-item {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .actions-section {
+        flex-direction: column;
+    }
+
+    .action-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
