@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Меню запросов</title>
+    <link href="{{ url_for('static', filename='menu.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="menu-container">
+        <h2>📊 Меню запросов</h2>
+
+        <a href="{{ url_for('query_bp.query_input', query_type='passenger') }}" class="menu-link">
+            👤 Поиск пассажира
+        </a>
+
+        <a href="{{ url_for('query_bp.query_input', query_type='bonus') }}" class="menu-link">
+            📋 История изменений бонусных миль
+        </a>
+
+        <a href="{{ url_for('query_bp.query_input', query_type='no_tickets_period') }}" class="menu-link">
+            🚫 Пассажиры без покупок за период
+        </a>
+
+        <a href="{{ url_for('query_bp.query_input', query_type='passenger_bonus_range') }}" class="menu-link">
+            📊 Пассажиры по диапазону бонусов
+        </a>
+
+        <a href="{{ url_for('main_menu') }}" class="menu-link">
+            ↩️ Назад в главное меню
+        </a>
+    </div>
+</body>
+</html>

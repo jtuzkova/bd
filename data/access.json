@@ -1,0 +1,29 @@
+{
+  "manager": [
+    "/query/",
+    "/query/passenger",
+    "/query/bonus",
+    "/report/",
+    "/report/ticket_sales",
+    "/report/ticket_sales/create",
+    "/report/bonus_miles_by_flight",
+    "/report/bonus_miles_by_flight/create",
+    "/report/passenger_top_revenue",
+    "/report/passenger_top_revenue/create"
+  ],
+  "admin": [
+    "/query/",
+    "/query/passenger",
+    "/query/bonus",
+    "/query/no_tickets_period",
+    "/query/passenger_bonus_range",
+    "/report/",
+    "/report/ticket_sales",
+    "/report/ticket_sales/view",
+    "/report/bonus_miles_by_flight",
+    "/report/bonus_miles_by_flight/view",
+    "/report/passenger_top_revenue",
+    "/report/passenger_top_revenue/view"
+  ],
+  "client": []
+}

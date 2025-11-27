@@ -1,0 +1,649 @@
+/* basket_order_list.html стили - обновленные под общий стиль проекта */
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.navigation-links {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.nav-link {
+    display: inline-block;
+    margin: 0px 0px; /* Уменьшил с 10px 5px до 5px 8px */
+    padding: 5px 10px; /* Уменьшил padding */
+    background: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.nav-link:hover {
+    background: #0056b3;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-decoration: none;
+}
+
+.page-title {
+    color: #ffffff;
+    font-size: 20px; /* Еще меньше */
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 5px; /* Немного уменьшил отступы */
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.search-container,
+.basket-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.section-header {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #007bff;
+}
+
+.search-form {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.btn-search {
+    width: 100%;
+    padding: 12px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.btn-search:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.search-results {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.results-title {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.basket-item-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease; /* Оставляем только тень */
+}
+
+.basket-item-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    /* Убрал transform: translateY(-2px); */
+}
+
+/* Анимация только для кнопки добавления в корзину */
+.btn-add {
+    width: 100%;
+    padding: 12px 20px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-add:hover {
+    background: #218838;
+    transform: translateY(-2px); /* Движение только у кнопки */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+
+.ticket-details {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.ticket-details p {
+    margin: 8px 0;
+}
+
+.ticket-form {
+    margin: 0;
+}
+
+
+.price {
+    color: #007bff;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.basket-container {
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    /* Убрал max-height и overflow-y: auto; */
+}
+
+.basket-items {
+    max-height: 400px;
+    overflow-y: auto; /* Ползунок только у списка билетов */
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.basket-item-wrapper {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.basket-item-wrapper:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.amount-section {
+    background: #e8f4f8;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 4px solid #007bff;
+    margin-top: 10px;
+}
+
+.amount-section p {
+    margin: 5px 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.btn-remove-ticket {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: #dc3545;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-remove-ticket:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+}
+
+.basket-summary {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.total-price {
+    font-size: 18px;
+    text-align: center;
+    color: #333;
+}
+
+.total-price strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.amount {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.basket-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-checkout {
+    padding: 15px 20px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-checkout:hover {
+    background: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    color: white;
+    text-decoration: none;
+}
+
+.btn-clear-basket {
+    padding: 12px 20px;
+    background: #dc3545;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn-clear-basket:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    color: white;
+    text-decoration: none;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+    font-style: italic;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px dashed #dee2e6;
+}
+
+.empty-state p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.basket-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+    font-style: italic;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px dashed #dee2e6;
+}
+
+.basket-empty p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+/* Стили для информации о рейсах */
+.flight-number {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.airport {
+    font-weight: bold;
+    color: #0056b3;
+    padding: 4px 8px;
+    background: #e8f4f8;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.date {
+    color: #495057;
+    font-weight: 500;
+}
+
+.amount-value {
+    color: #007bff;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Улучшение формы количества */
+.form-group input[type="number"] {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.form-group input[type="number"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Стили для верхней секции с кнопками */
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto 20px auto;
+    padding: 0 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.header-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #218838, #1e9e8a);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4);
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    color: white;
+    box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6268, #495057);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.4);
+    text-decoration: none;
+}
+
+/* Стили для формы поиска в одну строку */
+.search-form {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 0 auto 20px auto;
+    max-width: 1400px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    align-items: end;
+}
+
+.form-group {
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.btn-search {
+    width: 100%;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-search:hover {
+    background: linear-gradient(135deg, #0056b3, #004085);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 1200px) {
+    .header-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-buttons {
+        justify-content: center;
+    }
+
+    .form-row {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .header-section {
+        padding: 0 10px;
+    }
+
+    .header-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .header-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .search-form {
+        padding: 15px;
+        margin: 0 10px 20px 10px;
+    }
+}
+/* Адаптивность */
+@media (max-width: 1200px) {
+    .container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .basket-container {
+        position: relative;
+        top: auto;
+        max-height: none;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .page-title {
+        font-size: 24px;
+        padding: 10px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .container {
+        gap: 20px;
+        padding: 0 10px;
+    }
+
+    .search-container,
+    .basket-container {
+        padding: 20px;
+    }
+
+    .search-results {
+        max-height: 500px;
+    }
+
+    .basket-items {
+        max-height: 300px;
+    }
+
+    .basket-item-card {
+        padding: 15px;
+    }
+
+    .nav-link {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}

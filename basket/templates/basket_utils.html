@@ -1,0 +1,34 @@
+{% macro render_item(item, show_amount=False, show_form=False) %}
+    <div class="basket-item-card">
+        <div class="ticket-details">
+            <p><strong>Номер рейса:</strong> <span class="flight-number">{{ item['number'] }}</span></p>
+
+            <p><strong>Маршрут:</strong>
+                <span class="airport">{{ item['departure_airport'] }}</span>
+                →
+                <span class="airport">{{ item['arrival_airport'] }}</span>
+            </p>
+
+            {% if item.get('date') %}
+                <p><strong>Дата вылета:</strong> <span class="date">{{ item['date'] }}</span></p>
+            {% endif %}
+
+            <p><strong>Класс билета:</strong> {{ item['class'] }}</p>
+            <p><strong>Цена:</strong> <span class="price">{{ item['price'] }} руб.</span></p>
+
+            {% if show_amount %}
+                <div class="amount-section">
+                    <p><strong>Количество билетов:</strong> <span class="amount-value">{{ item['amount'] }}</span></p>
+                </div>
+            {% endif %}
+        </div>
+
+        {% if show_form %}
+            <form action="{{ url_for('flight_bp.add_to_basket') }}" method="POST" class="ticket-form">
+                <input type="hidden" name="d_id" value="{{ item.d_id }}">
+                <input type="hidden" name="class" value="{{ item['class'] }}">
+                <button type="submit" class="btn-add">🎫 Добавить в корзину</button>
+            </form>
+        {% endif %}
+    </div>
+{% endmacro %}

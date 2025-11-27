@@ -1,0 +1,1 @@
+call create_ticket_monthly_sales_report((%s),(%s));

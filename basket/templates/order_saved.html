@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Заказ успешно оформлен</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 50px;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(46, 125, 50, 0.3);
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #388e3c;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        a.button {
+            display: inline-block;
+            background-color: #4caf50;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        a.button:hover {
+            background-color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Ваш заказ успешно оформлен!</h1>
+        <p>Спасибо за покупку. Мы свяжемся с вами в ближайшее время для подтверждения деталей заказа.</p>
+        <a href="{{ url_for('flight_bp.show_booking_page') }}" class="button">Сделать ещё заказ</a>
+        <br><br>
+        <a href="{{ url_for('main_menu') }}" class="button">На главное меню</a>
+    </div>
+</body>
+</html>

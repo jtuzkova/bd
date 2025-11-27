@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление отчетами</title>
+    <link href="{{ url_for('static', filename='menu.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="menu-container">
+        <h2>📊 Управление отчетами</h2>
+        <p>Вы вошли как: <strong>{{ user_role }}</strong></p>
+
+        <a href="{{ url_for('report_bp.report_handle', report_type='ticket_sales') }}"
+           class="menu-link" style="background: #28a745; margin-bottom: 15px;">
+            Продажи билетов за месяц
+        </a>
+
+        <a href="{{ url_for('report_bp.report_handle', report_type='bonus_miles_by_flight') }}"
+           class="menu-link" style="background: #17a2b8;">
+            Бонусные мили по рейсам
+        </a>
+
+        <a href="{{ url_for('report_bp.report_handle', report_type='passenger_top_revenue') }}"
+           class="menu-link" style="background: #17a2b8;">
+            Топ пассажиров по выручке
+        </a>
+        <a href="{{ url_for('main_menu') }}" class="menu-link">← Вернуться в главное меню</a>
+    </div>
+</body>
+</html>

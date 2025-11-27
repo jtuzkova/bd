@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сообщение</title>
+    <link href="{{ url_for('static', filename='menu.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>📢 Сообщение</h2>
+
+        {% if msg %}
+            <div class="{% if msg_type == 'error' %}error{% else %}success{% endif %}" style="text-align: center; padding: 20px;">
+                {{ msg }}
+            </div>
+        {% endif %}
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="{{ url_for('report_bp.report_menu') }}" class="menu-link">← К списку отчетов</a>
+            <a href="{{ url_for('main_menu') }}" class="menu-link">← В главное меню</a>
+        </div>
+    </div>
+</body>
+</html>

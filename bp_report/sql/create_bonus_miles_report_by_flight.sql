@@ -1,0 +1,1 @@
+call create_bonus_miles_report_by_flight((%s), (%s));

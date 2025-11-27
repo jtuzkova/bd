@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главное меню</title>
+    <link href="{{ url_for('static', filename='menu.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="menu-container">
+        <h1>✈️ АВИАКОМПАНИЯ</h1>
+        <h2>Главное меню</h2>
+        <p>Вы вошли как: <strong>{{ user_role }}</strong></p>
+
+        <a href="{{ url_for('query_bp.query_menu') }}" class="menu-link">
+            👤 Работа с запросами
+        </a>
+
+        <a href="{{ url_for('report_bp.report_menu') }}" class="menu-link">
+            📈 Управление отчетами
+        </a>
+
+        <a href="{{ url_for('flight_bp.show_booking_page') }}" class="menu-link">
+            Покупка билетов
+        </a>
+
+        <a href="{{ url_for('auth_bp.logout') }}" class="menu-link">
+            🔐 Сменить пользователя
+        </a>
+
+        <a href="{{ url_for('exit_system') }}" class="menu-link exit-link">
+            ❌ Выход
+        </a>
+    </div>
+</body>
+</html>

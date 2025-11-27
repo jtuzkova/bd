@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if report_name %}
+            {{ report_name }}
+        {% else %}
+            Отчет
+        {% endif %}
+    </title>
+    <link href="{{ url_for('static', filename='menu.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>
+            {% if report_icon %}{{ report_icon }} {% endif %}
+            {% if report_name %}
+                {{ report_name }}
+            {% else %}
+                Отчет
+            {% endif %}
+        </h2>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="month">Месяц (1-12):</label>
+                <input type="number" id="month" name="month" min="1" max="12" required>
+            </div>
+            <div class="form-group">
+                <label for="year">Год:</label>
+                <input type="number" id="year" name="year" min="2020" max="2030" required>
+            </div>
+
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 25px;">
+                <input type="submit" value="📊 Создать отчет" class="submit-btn" style="background: #28a745;"
+                       formaction="{{ url_for('report_bp.report_create', report_type=report_type) }}">
+                <input type="submit" value="👁️ Просмотреть отчет" class="submit-btn" style="background: #17a2b8;"
+                       formaction="{{ url_for('report_bp.report_view', report_type=report_type) }}">
+            </div>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{{ url_for('report_bp.report_menu') }}" class="menu-link">← Назад к отчетам</a>
+            <a href="{{ url_for('main_menu') }}" class="menu-link">← В главное меню</a>
+        </div>
+    </div>
+</body>
+</html>

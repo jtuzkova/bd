@@ -1,0 +1,34 @@
+{
+  "ticket_sales": {
+    "name": "Продажи билетов за месяц",
+    "create_sql": "create_ticket_monthly_sales_report.sql",
+    "view_sql": "view_ticket_monthly_sales_report.sql",
+    "columns": [
+      "Аэропорт вылета",
+      "Класс",
+      "Продано билетов",
+      "Общая выручка"
+    ]
+  },
+  "bonus_miles_by_flight": {
+    "name": "Бонусные мили по рейсам",
+    "create_sql": "create_bonus_miles_report_by_flight.sql",
+    "view_sql": "view_bonus_miles_report_by_flight.sql",
+    "columns": [
+      "Номер рейса",
+      "Дата вылета",
+      "Кол-во билетов",
+      "Начислено миль"
+    ]
+  },
+  "passenger_top_revenue": {
+    "name": "Топ пассажиров по выручке",
+    "create_sql": "create_passenger_top_revenue_report.sql",
+    "view_sql": "view_passenger_top_revenue_report.sql",
+    "columns": [
+      "Имя пассажира",
+      "Кол-во билетов",
+      "Общая выручка"
+    ]
+  }
+}

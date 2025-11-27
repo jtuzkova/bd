@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты поиска</title>
+    <link href="{{ url_for('static', filename='sem1.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    {% if query_type == 'passenger' %}
+        <h2>Информация о пассажире</h2>
+        {% set column_titles = ("Имя пассажира", "Дата рождения", "Бонусные мили", "Дата изменения") %}
+    {% elif query_type == 'bonus' %}
+        <h2>История изменений бонусных миль</h2>
+        {% set column_titles = ("Дата изменения", "Имя пассажира", "Старое значение", "Новое значение") %}
+    {% elif query_type == 'no_tickets_period' %}
+        <h2>Пассажиры без покупок за указанный период</h2>
+        {% set column_titles = ("ID", "Имя", "Дата рождения", "Бонусные мили", "Дата изменения") %}
+    {% elif query_type == 'passenger_bonus_range' %}
+        <h2>Пассажиры по диапазону бонусов</h2>
+        {% set column_titles = ("ID", "Имя", "Дата рождения", "Бонусные мили", "Дата изменения") %}
+    {% else %}
+        <h2>Результаты запроса</h2>
+        {% set column_titles = () %}
+    {% endif %}
+
+    <p>
+        <table border="1">
+        <tr class="tab_title">
+            {% for title in column_titles %}
+            <td>{{title}}</td>
+            {% endfor %}
+        </tr>
+    {% for item in products %}
+        <tr>
+            {% for value in item %}
+            <td>{{value if value is not none else 'Нет данных'}}</td>
+            {% endfor %}
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="{{column_titles|length if column_titles else 1}}">Данные не найдены</td>
+        </tr>
+    {% endfor %}
+    </table>
+    </p>
+    <br>
+    <a href="{{ url_for('query_bp.query_menu') }}">↩️ Вернуться к выбору запросов</a>
+    <br><br>
+    <a href="{{ url_for('main_menu') }}">🏠 Вернуться в главное меню</a>
+</center>
+</body>
+</html>

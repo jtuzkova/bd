@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ report_name }}</title>
+    <link href="{{ url_for('static', filename='menu.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='table.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>{{ report_name }} за {{ month }}/{{ year }}</h2>
+
+        {% if reports %}
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        {% for column in column_names %}
+                            <td>{{ column }}</td>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for report in reports %}
+                    <tr>
+                        {% for item in report %}
+                            <td>{{ item }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Данные отчета не найдены</p>
+        {% endif %}
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{{ url_for('report_bp.report_handle', report_type=report_type) }}" class="menu-link">← Назад к форме</a>
+            <a href="{{ url_for('report_bp.report_menu') }}" class="menu-link">← Назад к отчетам</a>
+            <a href="{{ url_for('main_menu') }}" class="menu-link">← В главное меню</a>
+        </div>
+    </div>
+</body>
+</html>

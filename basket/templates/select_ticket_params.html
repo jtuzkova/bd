@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Покупка билета</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #e8f5e9; color: #2e7d32; }
+    .container { background: white; max-width: 400px; margin: 5vh auto; padding: 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(46, 125, 50, 0.15); }
+    label { display: block; margin-top: 15px; }
+    input, select, button { width: 100%; margin-top: 5px; margin-bottom: 10px; padding: 8px; border-radius: 5px; border: 1px solid #4caf50; }
+    button { background: #4caf50; color: #fff; border: none; font-size: 16px; cursor: pointer; }
+    button:hover { background: #388e3c; }
+    h1 { text-align: center; margin-bottom: 25px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Выбор параметров билета</h1>
+    <form action="{{ url_for('flight_bp.show_booking_page') }}" method="post">
+      <label for="departure_city">Город вылета:</label>
+      <input type="text" id="departure_city" name="departure_city" required>
+
+      <label for="arrival_city">Город прилёта:</label>
+      <input type="text" id="arrival_city" name="arrival_city" required>
+
+      <label for="flight_date">Дата вылета:</label>
+      <input type="date" id="flight_date" name="flight_date" required>
+
+      <label for="ticket_class">Класс билета:</label>
+      <select id="ticket_class" name="ticket_class" required>
+        <option value="economy">Эконом</option>
+        <option value="business">Бизнес</option>
+      </select>
+
+      <label for="passenger_count">Количество пассажиров:</label>
+      <input type="number" id="passenger_count" name="passenger_count" min="1" required>
+
+      <button type="submit">Далее</button>
+    </form>
+  </div>
+</body>
+</html>
