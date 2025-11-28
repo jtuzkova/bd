@@ -22,7 +22,7 @@
                 <tbody>
                     {% for report in reports %}
                     <tr>
-                        {% for item in report %}
+                        {% for item in report.values() %}
                             <td>{{ item }}</td>
                         {% endfor %}
                     </tr>

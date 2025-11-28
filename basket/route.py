@@ -19,6 +19,12 @@ flight_provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 
 cache_conn = RedisCache(cache_config['redis'])
 
+@fetch_from_cache("find_flights", cache_config)
+def cached_find_flights(params):
+    sql_name = "find_flights.sql"
+    flights_info = model_route(flight_provider, sql_name, params)
+    return flights_info.result if flights_info.status and flights_info.result else []
+
 
 @flight_bp.route('/order', methods=['GET', 'POST'])
 def show_booking_page():
@@ -34,12 +40,19 @@ def show_booking_page():
         }
         session['search_params'] = params
         session.modified = True
+    elif not params:
+        # Если GET и params нет, НЕ выполняйте запрос в базу
+        return render_template('booking_page.html',
+                               items=[], basket=session.get('basket'), total_price=0.0,
+                               search_params={})
 
     items = []
-    if params:
-        sql_name = "find_flights.sql"
-        flights_info = model_route(flight_provider, sql_name, params)
-        items = flights_info.result if flights_info.status and flights_info.result else []
+    # if params:
+        # sql_name = "find_flights.sql"
+        # flights_info = model_route(flight_provider, sql_name, params)
+        # items = flights_info.result if flights_info.status and flights_info.result else []
+
+    items = cached_find_flights(params)
 
     basket_items = session.get('basket', {})
     total_price = 0.0
@@ -56,7 +69,7 @@ def show_booking_page():
     session.modified = True
 
     return render_template(
-        'basket_order_list.html',
+        'booking_page.html',
         items=items,
         basket=basket_items,
         total_price=total_price,
@@ -97,13 +110,11 @@ def model_add_to_basket(user_data):
                 'date': flight.get('date'),
                 'class': ticket_class,
                 'price': flight.get('price'),
-                # 'bonus_miles': flight.get('bonus_miles', 0),
                 'amount': 1
             }
 
         session['basket'] = basket
         print('basket=', session['basket'])
-    print("Билет не найден!")
 
     return redirect(url_for('flight_bp.show_booking_page'))
 
@@ -211,6 +222,7 @@ def save_order():
         cursor.execute(sql_insert_history, [old_bonus_miles, new_bonus_miles, date.today(), p_id])
 
     session.pop('basket')
+    session.pop('search_params')
     session.modified = True
 
     return render_template(

@@ -27,8 +27,8 @@ def auth_index():
 
     if result_info.status and result_info.result:
         user = result_info.result[0]
-        session['user_id'] = user[0]
-        session['user_group'] = user[1]
+        session['user_id'] = user.get('u_id')
+        session['user_group'] = user.get('role')
         return redirect(url_for('main_menu'))
     else:
         return render_template('auth_form.html', error='Ошибка авторизации')

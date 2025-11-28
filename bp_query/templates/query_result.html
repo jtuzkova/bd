@@ -32,11 +32,11 @@
             {% endfor %}
         </tr>
     {% for item in products %}
-        <tr>
-            {% for value in item %}
-            <td>{{value if value is not none else 'Нет данных'}}</td>
-            {% endfor %}
-        </tr>
+      <tr>
+        {% for value in item.values() %}
+          <td>{{ value if value is not none else '' }}</td>
+        {% endfor %}
+      </tr>
     {% else %}
         <tr>
             <td colspan="{{column_titles|length if column_titles else 1}}">Данные не найдены</td>

@@ -51,7 +51,7 @@ def report_create(report_type):
 
     if result_info.status:
         return render_template('message.html',
-                               msg=result_info.result[0][0],
+                               msg=result_info.result[0].get('message'),
                                msg_type='success')
     else:
         return render_template('message.html',

@@ -1,6 +1,7 @@
 import json
-
+from datetime import date, datetime
 from redis import Redis, DataError, ConnectionError
+from decimal import Decimal
 
 
 class RedisCache:
@@ -12,34 +13,27 @@ class RedisCache:
         conn = Redis(**self.config)
         return conn
 
+    def _json_default(self, obj):
+        if isinstance(obj, Decimal):
+            return str(obj)
+        if isinstance(obj, (date, datetime)):
+            return obj.isoformat()
+        raise TypeError(f"Type {type(obj)} is not JSON serializable")
+
     def set_value(self, name: str, value, ttl: float):
-        value_js = json.dumps(value)
         try:
+            value_js = json.dumps(value, default=self._json_default, ensure_ascii=False)
             self.conn.set(name=name, value=value_js)
             if ttl > 0:
                 self.conn.expire(name, ttl)
             return True
-        except DataError as err:
-            print(err)
+        except (DataError, TypeError) as err:
+            print(f"Redis set error: {err}")
             return False
 
-    def get_value(self, name):
-        value_js = self.conn.get(name)
-        if value_js:
-            value_dict = json.loads(value_js)
-            return value_dict
-        return None
-
-
-    def get_item_by_class(self, cache_name: str, item_id, item_class, id_field: str = 'f_id',
-                          class_field: str = 'class'):
-        items = self.get_value(cache_name)
-
-        if not items:
+    def get_value(self, name: str):
+        value_json = self.conn.get(name)
+        if not value_json:
             return None
-
-        for item in items:
-            if (str(item.get(id_field)) == str(item_id) and
-                    item.get(class_field) == item_class):
-                return item
-        return None
+        value_dict = json.loads(value_json)
+        return value_dict
