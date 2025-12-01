@@ -41,16 +41,9 @@ def show_booking_page():
         session['search_params'] = params
         session.modified = True
     elif not params:
-        # Если GET и params нет, НЕ выполняйте запрос в базу
         return render_template('booking_page.html',
                                items=[], basket=session.get('basket'), total_price=0.0,
                                search_params={})
-
-    items = []
-    # if params:
-        # sql_name = "find_flights.sql"
-        # flights_info = model_route(flight_provider, sql_name, params)
-        # items = flights_info.result if flights_info.status and flights_info.result else []
 
     items = cached_find_flights(params)
 
