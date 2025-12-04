@@ -1,1 +1,1 @@
-INSERT INTO `order` VALUES (NULL, %s, %s)
+INSERT INTO `orders` VALUES (NULL, %s)

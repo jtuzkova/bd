@@ -11,13 +11,15 @@
         <h2>Главное меню</h2>
         <p>Вы вошли как: <strong>{{ user_role }}</strong></p>
 
-        <a href="{{ url_for('query_bp.query_menu') }}" class="menu-link">
-            👤 Работа с запросами
-        </a>
+        {% if user_role != 'user' %}
+            <a href="{{ url_for('query_bp.query_menu') }}" class="menu-link">
+                👤 Работа с запросами
+            </a>
 
-        <a href="{{ url_for('report_bp.report_menu') }}" class="menu-link">
-            📈 Управление отчетами
-        </a>
+            <a href="{{ url_for('report_bp.report_menu') }}" class="menu-link">
+                📈 Управление отчетами
+            </a>
+        {% endif %}
 
         <a href="{{ url_for('flight_bp.show_booking_page') }}" class="menu-link">
             Покупка билетов
