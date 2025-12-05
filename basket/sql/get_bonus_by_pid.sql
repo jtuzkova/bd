@@ -1,0 +1,1 @@
+SELECT bonus_miles FROM passenger WHERE p_id = %s;

@@ -1,4 +1,4 @@
-SELECT ex_id, role
+SELECT ex_id, role, pass_id
 FROM external_users
 WHERE
     login = (%s)

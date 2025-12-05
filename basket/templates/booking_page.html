@@ -24,11 +24,11 @@
         <form action="{{ url_for('flight_bp.show_booking_page') }}" method="POST">
             <div class="form-row">
                 <div class="form-group">
-                    <label>Город вылета:</label>
+                    <label>Аэропорт вылета:</label>
                     <input type="text" name="departure_city" value="{{ search_params.get('departure_airport', '') }}" required>
                 </div>
                 <div class="form-group">
-                    <label>Город прилёта:</label>
+                    <label>Аэропорт прилёта:</label>
                     <input type="text" name="arrival_city" value="{{ search_params.get('arrival_airport', '') }}" required>
                 </div>
                 <div class="form-group">

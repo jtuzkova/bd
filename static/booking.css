@@ -1055,3 +1055,609 @@ body {
         justify-content: center;
     }
 }
+
+/* ============================================
+   Стили для страницы оформления заказа (fill_passenger.html)
+   ============================================ */
+
+/* Контейнер для центрирования формы оформления заказа */
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 200px);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.order-container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Заголовок на странице оформления */
+.center-header-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 1400px;
+    margin: 0 auto 20px auto;
+    padding: 0 20px;
+    gap: 15px;
+    text-align: center;
+}
+
+.center-header-section .page-title {
+    margin: 0 auto;
+}
+
+.center-header-section .header-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Секция с формами пассажиров */
+.passenger-forms-section {
+    margin-bottom: 40px;
+}
+
+.forms-title {
+    color: #2c3e50;
+    font-size: 22px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+}
+
+.passenger-form-card {
+    background: #f8f9fa;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.passenger-header {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin: -20px -20px 20px -20px;
+}
+
+.passenger-title {
+    color: white;
+    font-size: 18px;
+    margin: 0;
+}
+
+/* Сетка форм */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.form-group {
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 14px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-input::placeholder {
+    color: #999;
+}
+
+/* Итоговая информация о заказе */
+.order-summary {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 2px solid #28a745;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+}
+
+.summary-title {
+    color: #28a745;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.order-items {
+    margin-bottom: 20px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.order-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.route-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.route-info strong {
+    color: #333;
+    font-size: 16px;
+}
+
+.flight-number {
+    color: #666;
+    font-size: 12px;
+}
+
+.item-details {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.class-badge {
+    background: #007bff;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.quantity {
+    color: #666;
+    font-weight: bold;
+}
+
+.price {
+    color: #28a745;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.total-section {
+    border-top: 2px solid #dee2e6;
+    padding-top: 15px;
+}
+
+.total-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.main-total {
+    font-size: 18px;
+    color: #333;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #dee2e6;
+}
+
+.total-amount {
+    color: #007bff;
+    font-size: 24px;
+}
+
+/* Кнопка подтверждения */
+.form-actions {
+    text-align: center;
+}
+
+.btn-submit {
+    width: 100%;
+    max-width: 400px;
+    padding: 18px 30px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    display: block;
+    margin: 0 auto;
+}
+
+.btn-submit:hover {
+    background: linear-gradient(135deg, #218838, #1e9e8a);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+.btn-submit:active {
+    transform: translateY(-1px);
+}
+
+/* Анимация появления */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.order-container {
+    animation: slideInUp 0.6s ease-out;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .center-container {
+        padding: 10px;
+        align-items: flex-start;
+    }
+
+    .order-container {
+        padding: 25px;
+        margin: 0;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .passenger-form-card {
+        padding: 15px;
+    }
+
+    .passenger-header {
+        margin: -15px -15px 15px -15px;
+        padding: 10px;
+    }
+
+    .order-item {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .item-details {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-submit {
+        padding: 15px 20px;
+        font-size: 16px;
+        max-width: 100%;
+    }
+
+    .center-header-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .header-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .header-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .center-container {
+        min-height: calc(100vh - 150px);
+    }
+
+    .order-container {
+        padding: 20px 15px;
+    }
+
+    .order-summary {
+        padding: 15px;
+    }
+}
+
+/* ============================================
+   Дополнительные стили для информации о билетах
+   ============================================ */
+
+//* ============================================
+   Компактные стили для информации о билетах
+   ============================================ */
+
+/* Подзаголовок пассажира */
+.passenger-subtitle {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: normal;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 3px 8px;
+    border-radius: 12px;
+    margin-left: 10px;
+}
+
+/* Компактная информация о рейсе */
+.ticket-info-compact {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #e9ecef;
+}
+
+.compact-route {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.airport-box {
+    padding: 6px 12px;
+    border-radius: 6px;
+    min-width: 100px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.airport-box.departure {
+    background: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #bbdefb;
+}
+
+.airport-box.arrival {
+    background: #e8f5e8;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+.airport-code {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.flight-line {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin: 0 10px;
+    position: relative;
+}
+
+.flight-dots {
+    flex-grow: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, #ccc 50%, transparent 100%);
+    border-bottom: 1px dashed #ccc;
+}
+
+.flight-plane {
+    margin: 0 8px;
+    font-size: 16px;
+    animation: fly 2s infinite ease-in-out;
+}
+
+@keyframes fly {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+}
+
+.compact-details {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    font-size: 12px;
+}
+
+.detail-icon {
+    font-size: 10px;
+}
+
+.detail-text {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Уменьшаем отступы для компактности */
+.passenger-form-card {
+    padding: 15px;
+    animation: fadeInUp 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Задержка для последовательного появления карточек */
+.passenger-form-card:nth-child(1) { animation-delay: 0.1s; }
+.passenger-form-card:nth-child(2) { animation-delay: 0.2s; }
+.passenger-form-card:nth-child(3) { animation-delay: 0.3s; }
+.passenger-form-card:nth-child(4) { animation-delay: 0.4s; }
+.passenger-form-card:nth-child(5) { animation-delay: 0.5s; }
+.passenger-form-card:nth-child(6) { animation-delay: 0.6s; }
+
+.passenger-header {
+    padding: 10px 15px;
+    margin: -15px -15px 15px -15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.passenger-title {
+    color: white;
+    font-size: 18px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.passenger-title::before {
+    content: "👤";
+    font-size: 20px;
+}
+
+.form-grid {
+    gap: 15px;
+}
+
+.form-input {
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+/* Стили для цены билета */
+.detail-item.price .detail-text {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+/* Еще более компактный вариант на мобильных */
+@media (max-width: 768px) {
+    .passenger-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        padding: 8px 12px;
+    }
+
+    .passenger-subtitle {
+        margin-left: 0;
+        align-self: flex-start;
+    }
+
+    .compact-route {
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    .airport-box {
+        width: 100%;
+        min-width: auto;
+        padding: 8px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .flight-line {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .airport-box.departure::after {
+        content: "→";
+        color: #1565c0;
+        font-weight: bold;
+    }
+
+    .airport-box.arrival::before {
+        content: "→";
+        color: #2e7d32;
+        font-weight: bold;
+        margin-right: 8px;
+    }
+
+    .compact-details {
+        justify-content: space-between;
+    }
+
+    .detail-item {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    .passenger-form-card {
+        padding: 12px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .compact-details {
+        gap: 8px;
+    }
+
+    .detail-item {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+}

@@ -37,6 +37,7 @@ def auth_index():
 
         user_dict = data.get('user')
         session['user_id'] = user_dict.get('u_id')
+        session['pass_id'] = user_dict.get('pass_id')
         session['user_group'] = user_dict.get('role')
         session.permanent = True
         return redirect(url_for('main_menu'))

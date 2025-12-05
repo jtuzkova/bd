@@ -18,7 +18,7 @@ auth_provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 def find_user():
     print(f'{__name__ = }: {request.headers = }')
 
-    auth = request.authorization  # парсинг Basic/Digest из коробки
+    auth = request.authorization
     if not auth or not auth.username or not auth.password:
         return jsonify(error='Bad request'), 400
 
