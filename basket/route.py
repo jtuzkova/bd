@@ -117,8 +117,27 @@ def fill_passenger():
 
     total_price = session.get('total_price', 0.0)
     total_tickets = sum(item.get('amount', 0) for item in basket.values())
-    return render_template('fill_passenger.html', basket=basket,
-                           total_price=total_price, total_tickets=total_tickets)
+
+    # Формируем список билетов в Python
+    ticket_list = []
+    for key, item in basket.items():
+        for i in range(item.get('amount', 0)):
+            ticket_list.append({
+                'departure': item.get('departure_airport'),
+                'arrival': item.get('arrival_airport'),
+                'date': item.get('date'),
+                'number': item.get('number'),
+                'class': item.get('class'),
+                'price': item.get('price'),
+                'key': key,
+                'index': len(ticket_list)  # индекс от 0
+            })
+
+    return render_template('fill_passenger.html',
+                           basket=basket,
+                           total_price=total_price,
+                           total_tickets=total_tickets,
+                           ticket_list=ticket_list)  # передаём готовый список
 
 
 @flight_bp.route('/save', methods=['POST'])
@@ -137,7 +156,7 @@ def save_order():
     # Собираем ФИО для каждого билета
     fi_list = []
     for i in range(total_tickets):
-        fi = request.form.get(f'passenger_name_{i}')
+        fi = request.form.get(f'passenger_name{i}')
         if not fi:
             return "Ошибка: заполните ФИО всех пассажиров"
         fi_list.append(fi)

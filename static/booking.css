@@ -1661,3 +1661,43 @@ body {
         font-size: 11px;
     }
 }
+.fill-passenger-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: calc(100vh - 200px);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .fill-order-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .flight-info {
+            background: f8f9fa;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid e9ecef;
+            text-align: center;
+        }
+
+        .back-link {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 18px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
