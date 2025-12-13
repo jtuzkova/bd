@@ -17,7 +17,6 @@
                 <p>Заполните информацию о каждом пассажире для оформления билетов</p>
             </div>
 
-            {% set total_tickets = total_tickets %}
             <h3 class="forms-title">👤 Информация о пассажирах ({{ total_tickets }})</h3>
 
             <form method="POST" action="{{ url_for('flight_bp.save_order') }}">
@@ -67,11 +66,11 @@
 
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>Имя Фамилия *:</label>
+                                <label>Имя Фамилия</label>
                                 <input type="text" class="form-input" name="passenger_name{{ ticket.index }}" required>
                             </div>
                             <div class="form-group">
-                                <label>Дата рождения *:</label>
+                                <label>Дата рождения</label>
                                 <input type="date" class="form-input" name="passenger_birth{{ ticket.index }}" required>
                             </div>
                         </div>

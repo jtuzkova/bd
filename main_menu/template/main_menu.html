@@ -11,7 +11,7 @@
         <h2>Главное меню</h2>
         <p>Вы вошли как: <strong>{{ user_role }}</strong></p>
 
-        {% if user_role != 'user' %}
+        {% if user_role != 'client' %}
             <a href="{{ url_for('query_bp.query_menu') }}" class="menu-link">
                 👤 Работа с запросами
             </a>
@@ -21,9 +21,11 @@
             </a>
         {% endif %}
 
-        <a href="{{ url_for('flight_bp.show_booking_page') }}" class="menu-link">
-            Покупка билетов
-        </a>
+        {% if user_role == 'client' %}
+            <a href="{{ url_for('flight_bp.show_booking_page') }}" class="menu-link">
+                Покупка билетов
+            </a>
+        {% endif %}
 
         <a href="{{ url_for('auth_bp.logout') }}" class="menu-link">
             🔐 Сменить пользователя

@@ -9,6 +9,11 @@
     <div class="menu-container">
         <h2>📝 Ввод параметров</h2>
 
+        {% if error %}
+            <div class="error">
+              {{ error }}
+            </div>
+        {% endif %}
         {% if query_type == 'passenger' %}
         <form action="{{ url_for('query_bp.passenger_query') }}" method="post">
             <label for="passenger_name">Имя пассажира:</label>
@@ -39,30 +44,30 @@
         </form>
 
         {% elif query_type == 'no_tickets_period' %}
-<form action="{{ url_for('query_bp.no_tickets_period_query') }}" method="post">
-    <div class="form-group">
-        <label for="month">Месяц:</label>
-        <select name="month" id="month" required>
-            <option value="01">Январь</option>
-            <option value="02">Февраль</option>
-            <option value="03" selected>Март</option>
-            <option value="04">Апрель</option>
-            <option value="05">Май</option>
-            <option value="06">Июнь</option>
-            <option value="07">Июль</option>
-            <option value="08">Август</option>
-            <option value="09">Сентябрь</option>
-            <option value="10">Октябрь</option>
-            <option value="11">Ноябрь</option>
-            <option value="12">Декабрь</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="year">Год:</label>
-        <input type="number" name="year" id="year" min="2000" max="2030" value="2020" required>
-    </div>
-    <input type="submit" value="Найти пассажиров" class="menu-link">
-</form>
+        <form action="{{ url_for('query_bp.no_tickets_period_query') }}" method="post">
+            <div class="form-group">
+                <label for="month">Месяц:</label>
+                <select name="month" id="month" required>
+                    <option value="01">Январь</option>
+                    <option value="02">Февраль</option>
+                    <option value="03" selected>Март</option>
+                    <option value="04">Апрель</option>
+                    <option value="05">Май</option>
+                    <option value="06">Июнь</option>
+                    <option value="07">Июль</option>
+                    <option value="08">Август</option>
+                    <option value="09">Сентябрь</option>
+                    <option value="10">Октябрь</option>
+                    <option value="11">Ноябрь</option>
+                    <option value="12">Декабрь</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="year">Год:</label>
+                <input type="number" name="year" id="year" min="2000" max="2030" value="2020" required>
+            </div>
+            <input type="submit" value="Найти пассажиров" class="menu-link">
+        </form>
 
         {% endif %}
 

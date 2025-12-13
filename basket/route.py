@@ -1,5 +1,7 @@
 from datetime import date, datetime
 from flask import Blueprint, render_template, request, redirect, url_for, session
+
+from access import group_required
 from database.DBcm import DBContextManager
 from database.sql_provider import SQLProvider
 from model_route import model_route
@@ -16,6 +18,7 @@ flight_bp = Blueprint('flight_bp', __name__, template_folder='templates')
 flight_provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 
 @flight_bp.route('/order', methods=['GET', 'POST'])
+@group_required
 def show_booking_page():
     params = session.get('search_params', {})
     print(params)
@@ -91,7 +94,7 @@ def model_add_to_basket(user_data):
                 'number': flight.get('number'),
                 'departure_airport': flight.get('departure_airport'),
                 'arrival_airport': flight.get('arrival_airport'),
-                'date': flight.get('date'),
+                'date': flight.get('date').strftime('%Y-%m-%d'),
                 'class': ticket_class,
                 'price': flight.get('price'),
                 'amount': 1
@@ -118,7 +121,6 @@ def fill_passenger():
     total_price = session.get('total_price', 0.0)
     total_tickets = sum(item.get('amount', 0) for item in basket.values())
 
-    # Формируем список билетов в Python
     ticket_list = []
     for key, item in basket.items():
         for i in range(item.get('amount', 0)):
@@ -130,14 +132,14 @@ def fill_passenger():
                 'class': item.get('class'),
                 'price': item.get('price'),
                 'key': key,
-                'index': len(ticket_list)  # индекс от 0
+                'index': len(ticket_list)
             })
-
+    print('ticket_list=', ticket_list)
     return render_template('fill_passenger.html',
                            basket=basket,
                            total_price=total_price,
                            total_tickets=total_tickets,
-                           ticket_list=ticket_list)  # передаём готовый список
+                           ticket_list=ticket_list)
 
 
 @flight_bp.route('/save', methods=['POST'])
@@ -146,14 +148,12 @@ def save_order():
     if not basket:
         return redirect(url_for('flight_bp.show_booking_page'))
 
-    # Покупатель уже известен по pass_id в сессии
     buyer_pid = session.get('pass_id')
     if not buyer_pid:
         return "Нет пассажира в сессии"
 
     total_tickets = sum(item.get('amount', 0) for item in basket.values())
 
-    # Собираем ФИО для каждого билета
     fi_list = []
     for i in range(total_tickets):
         fi = request.form.get(f'passenger_name{i}')
@@ -177,18 +177,15 @@ def save_order():
     new_bonus = 0
 
     with DBContextManager(db_config) as cursor:
-        # 1. Текущие бонусы покупателя
         cursor.execute(sql_get_bonus, [buyer_pid])
         row = cursor.fetchone()
         old_bonus = row[0] if row else 0
 
-        # 2. Создаём заказ
         cursor.execute(sql_insert_order, [order_date])
         order_id = cursor.lastrowid
 
         ticket_idx = 0
 
-        # 3. Создаём билеты и считаем мили
         for key, item in basket.items():
             d_id = item['d_id']
             ticket_class = item['class']
@@ -216,7 +213,6 @@ def save_order():
 
                 earned_bonus_total += miles
 
-        # 4. Обновляем бонусы покупателя и историю
         new_bonus = old_bonus + earned_bonus_total
         cursor.execute(
             sql_update_bonus,
@@ -227,7 +223,6 @@ def save_order():
             [old_bonus, new_bonus, date.today(), buyer_pid]
         )
 
-    # 5. Чистим сессию и показываем результат
     session.pop('basket', None)
     session.pop('search_params', None)
     session.modified = True

@@ -1,5 +1,5 @@
 SELECT u_id, role
-FROM users
+FROM internal_users
 WHERE
     login = (%s)
     AND passw = (%s)

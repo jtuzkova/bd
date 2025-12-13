@@ -58,9 +58,3 @@ def auth_index():
 def logout():
     session.clear()
     return redirect(url_for('auth_bp.auth_index'))
-
-
-# @auth_bp.route('/access_denied')
-# def access_denied():
-#     user_role = session.get('user_group', '')
-#     return render_template('access_denied.html', user_role=user_role)

@@ -97,3 +97,7 @@ body {
     background: #f8d7da;
     border-radius: 4px;
 }
+
+.error-title {
+    color: #ffffff;
+}

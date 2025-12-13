@@ -9,7 +9,7 @@
 </head>
 <body class="success-page">
     <div class="success-container">
-        <!-- Шапка успеха -->
+
         <div class="success-header">
             <div class="success-icon">✅</div>
             <h1 class="success-title">Заказ успешно оформлен!</h1>
@@ -19,7 +19,6 @@
             </p>
         </div>
 
-        <!-- Секция пассажиров -->
         {% if passengers %}
         <div class="passengers-section">
             <h2 class="section-title">
@@ -66,7 +65,6 @@
         </div>
         {% endif %}
 
-        <!-- Информация о бонусах -->
         <div class="bonus-section">
             <div class="bonus-card text-center">
                 <div class="bonus-amount">🎁</div>
@@ -77,7 +75,6 @@
             </div>
         </div>
 
-        <!-- Кнопки действий -->
         <div class="success-actions">
             <a href="{{ url_for('flight_bp.show_booking_page') }}" class="btn btn-primary">
                 ✈️ Сделать новый заказ
@@ -88,7 +85,6 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS (опционально) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

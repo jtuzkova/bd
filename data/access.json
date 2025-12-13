@@ -25,5 +25,7 @@
     "/report/passenger_top_revenue",
     "/report/passenger_top_revenue/view"
   ],
-  "client": []
+  "client": [
+    "/basket/order"
+  ]
 }

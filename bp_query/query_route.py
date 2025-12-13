@@ -41,7 +41,11 @@ def passenger_query():
                                query_type='passenger',
                                products=data)
     else:
-        return f"Ошибка: {result_info.err_message}"
+        return render_template(
+            'query_input.html',
+            query_type='passenger',
+            error=result_info.err_message,
+        )
 
 
 @query_bp.route('/bonus', methods=['POST'])
@@ -58,15 +62,16 @@ def bonus_query():
                                query_type='bonus',
                                products=data)
     else:
-        return f"Ошибка: {result_info.err_message}"
+        return render_template(
+            'query_input.html',
+            query_type='passenger',
+            error=result_info.err_message,
+        )
 
 
-@query_bp.route('/no_tickets_period', methods=['GET', 'POST'])
+@query_bp.route('/no_tickets_period', methods=['POST'])
 @group_required
 def no_tickets_period_query():
-    if request.method == 'GET':
-        return render_template('query_input.html', query_type='no_tickets_period')
-
     month = request.form.get('month')
     year = request.form.get('year')
 
@@ -82,14 +87,16 @@ def no_tickets_period_query():
                                query_type='no_tickets_period',
                                products=result_info.result)
     else:
-        return f"Ошибка: {result_info.err_message}"
+        return render_template(
+            'query_input.html',
+            query_type='passenger',
+            error=result_info.err_message,
+        )
 
-@query_bp.route('/passenger_bonus_range', methods=['GET', 'POST'])
+
+@query_bp.route('/passenger_bonus_range', methods=['POST'])
 @group_required
 def passenger_bonus_range_query():
-    if request.method == 'GET':
-        return render_template('query_input.html', query_type='passenger_bonus_range')
-
     min_bonus = request.form.get('min_bonus')
     max_bonus = request.form.get('max_bonus')
 
@@ -105,4 +112,8 @@ def passenger_bonus_range_query():
                                query_type='passenger_bonus_range',
                                products=result_info.result)
     else:
-        return f"Ошибка: {result_info.err_message}"
+        return render_template(
+            'query_input.html',
+            query_type='passenger',
+            error=result_info.err_message,
+        )

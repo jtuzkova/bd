@@ -1,4 +1,3 @@
-import requests
 from flask import Flask, render_template, session, redirect, url_for
 from bp_query.query_route import query_bp
 from bp_auth.auth_route import auth_bp
