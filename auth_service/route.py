@@ -29,7 +29,7 @@ def find_user():
 
     if not user.result:
         return jsonify(error='User not found'), 401
-
+    print("user = ", user.result[0])
     return jsonify(user=user.result[0]), 200
 
 
